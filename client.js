@@ -9,7 +9,7 @@ function init(bundle, parent, options = {}) {
     // Add custom options here
     fullScreen: true,
     nativeModules: [
-      new ConexionModule(),
+      ctx => new ConexionModule(ctx),
     ],
     ...options,
   });

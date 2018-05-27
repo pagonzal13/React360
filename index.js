@@ -25,10 +25,14 @@ export default class Ediphy360 extends React.Component {
       format:'2D',
     };
   }
- 
 
   componentDidMount() {
-    ConexionModule.conexionIframe();
+    ConexionModule.conexionIframe(datos => {
+      console.log("Ha llegado algo al index! es: " + datos);
+      this.setState({
+        datosPadre: datos.conexion
+      });
+    });
   }
 
   _prevPhoto = () => {
@@ -43,7 +47,7 @@ export default class Ediphy360 extends React.Component {
   };
 
   render() {
-    console.log(this.state.datosPadre);
+    
     return (
       <View style={styles.panel}>
 
