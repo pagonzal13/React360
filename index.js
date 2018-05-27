@@ -20,19 +20,37 @@ export default class Ediphy360 extends React.Component {
     super();
 
     this.state = {
-      datosPadre: "Texto provisional",
+      textoConexion: "Compruebe la conexión",
       imgBack: undefined,
       format:'2D',
     };
+    this.escucharConexion=this.escucharConexion.bind(this);
+  }
+
+  escucharConexion() {
+    ConexionModule.conexionIframe(datos => {
+      if(datos.conexion){
+        this.setState({
+          textoConexion: datos.conexion
+        });
+        this.escucharConexion();
+      }
+      else if(datos.imagenBack){
+        this.setState({
+          imgBack: datos.imagenBack
+        });
+        this.escucharConexion();
+      }else{
+        this.setState({
+          textoConexion: "No llegan datos conocidos"
+        });
+        this.escucharConexion();
+      }
+    });
   }
 
   componentDidMount() {
-    ConexionModule.conexionIframe(datos => {
-      console.log("Ha llegado algo al index! es: " + datos);
-      this.setState({
-        datosPadre: datos.conexion
-      });
-    });
+    this.escucharConexion();
   }
 
   _prevPhoto = () => {
@@ -54,10 +72,7 @@ export default class Ediphy360 extends React.Component {
         <Background imgBack={this.state.imgBack} format={this.state.format} />
         
         <View style={styles.greetingBox}>
-          <Text style={styles.greeting}>
-            Esto es lo que queremos comunicar
-          </Text>
-          <Text style={styles.greeting}>{this.state.datosPadre}</Text>
+          <Text style={styles.greeting}>{this.state.textoConexion}</Text>
         </View>
         
         <View style={styles.controls}>
