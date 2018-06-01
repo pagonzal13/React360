@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
   Environment,
   asset,
 } from 'react-360';
@@ -29,5 +26,3 @@ export default class Background extends React.Component {
   }
 };
 
-const styles = StyleSheet.create({
-});

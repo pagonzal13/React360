@@ -10,9 +10,11 @@ import {
 } from 'react-360';
 
 import Background from './components/Background.js';
+import BackgroundAudio from './components/BackgroundAudio.js';
 
 // Extract our custom native module
 const ConexionModule = NativeModules.ConexionModule;
+const {AudioModule} = NativeModules;
 
 export default class Ediphy360 extends React.Component {
 
@@ -20,32 +22,28 @@ export default class Ediphy360 extends React.Component {
     super();
 
     this.state = {
-      textoConexion: "Compruebe la conexión",
       imgBack: undefined,
       format:'2D',
+      playAudio: false,
     };
     this.escucharConexion=this.escucharConexion.bind(this);
   }
 
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
-      if(datos.conexion){
-        this.setState({
-          textoConexion: datos.conexion
-        });
+      if(datos.audioBack){
+          this.setState({
+            playAudio: datos.audioBack.play
+          });
         this.escucharConexion();
       }
-      else if(datos.imagenBack){
+      if(datos.imagenBack){
         this.setState({
           imgBack: datos.imagenBack
         });
         this.escucharConexion();
-      }else{
-        this.setState({
-          textoConexion: "No llegan datos conocidos"
-        });
-        this.escucharConexion();
       }
+      this.escucharConexion();
     });
   }
 
@@ -53,15 +51,16 @@ export default class Ediphy360 extends React.Component {
     this.escucharConexion();
   }
 
-  _prevPhoto = () => {
-    this.setState({
-      imgBack: 'pano-planets.jpg',
+  _playAudio = () => {
+    //console.log("Empieza el audio de ambiente");
+    AudioModule.playEnvironmental({
+      source: asset('audio/Blue_Jacket.mp3'),
+      volume: 0.7,
     });
   };
-  _nextPhoto = () => {
-    this.setState({
-      imgBack: 'pano-nature.jpg',
-    });
+  _stopAudio = () => {
+    //console.log("Se para el audio de ambiente");
+    AudioModule.stopEnvironmental();
   };
 
   render() {
@@ -70,17 +69,14 @@ export default class Ediphy360 extends React.Component {
       <View style={styles.panel}>
 
         <Background imgBack={this.state.imgBack} format={this.state.format} />
-        
-        <View style={styles.greetingBox}>
-          <Text style={styles.greeting}>{this.state.textoConexion}</Text>
-        </View>
+        <BackgroundAudio playAudio={this.state.playAudio} />
         
         <View style={styles.controls}>
-          <VrButton onClick={this._prevPhoto} style={styles.button}>
-              <Text style={styles.buttonText}>{'<'}</Text>
+          <VrButton onClick={this._playAudio} style={styles.button}>
+              <Text style={styles.buttonText}>{'Play'}</Text>
           </VrButton>
-          <VrButton onClick={this._nextPhoto} style={styles.button}>
-              <Text style={styles.buttonText}>{'>'}</Text>
+          <VrButton onClick={this._stopAudio} style={styles.button}>
+              <Text style={styles.buttonText}>{'Stop'}</Text>
           </VrButton>
         </View>
 
@@ -95,36 +91,28 @@ const styles = StyleSheet.create({
     width: 1000,
     height: 600,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  greetingBox: {
-    padding: 20,
-    backgroundColor: '#000000',
-    borderColor: '#639dda',
-    borderWidth: 2,
-  },
-  greeting: {
-    fontSize: 30,
-  },
   controls: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: 120,
-    padding: 10,
+    width: 170,
+    padding: 5,
+    margin: 30,
   },
   button: {
-    backgroundColor: '#c0c0d0',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     borderRadius: 5,
-    width: 40,
-    height: 44,
+    justifyContent: 'center',
+    width: 60,
+    height: 60,
   },
   buttonText: {
     textAlign: 'center',
-    color: '#000000',
-    fontSize: 30,
+    color: 'white',
+    fontSize: 20,
     fontWeight: 'bold',
   },
 });
