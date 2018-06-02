@@ -6,12 +6,17 @@ import {
   View,
   NativeModules,
   VrButton,
+  Image,
   asset,
 } from 'react-360';
 
 import Background from './components/Background.js';
 import BackgroundAudio from './components/BackgroundAudio.js';
+import ProyectorComponente from './components/ProyectorComponente.js';
 
+const Proyector = () => (
+  <ProyectorComponente/>
+);
 // Extract our custom native module
 const ConexionModule = NativeModules.ConexionModule;
 const {AudioModule} = NativeModules;
@@ -63,6 +68,10 @@ export default class Ediphy360 extends React.Component {
     AudioModule.stopEnvironmental();
   };
 
+  _onItemImgMenuClick = () => {
+    
+  }
+
   render() {
     
     return (
@@ -70,7 +79,11 @@ export default class Ediphy360 extends React.Component {
 
         <Background imgBack={this.state.imgBack} format={this.state.format} />
         <BackgroundAudio playAudio={this.state.playAudio} />
-        
+
+        <VrButton onClick={this._onItemImgMenuClick}>
+          <Image style={styles.imgmenu} source={asset('icons/360-photography-icon.jpg')} />
+        </VrButton>
+
         <View style={styles.controls}>
           <VrButton onClick={this._playAudio} style={styles.button}>
               <Text style={styles.buttonText}>{'Play'}</Text>
@@ -91,7 +104,7 @@ const styles = StyleSheet.create({
     width: 1000,
     height: 600,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   controls: {
@@ -115,6 +128,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  imgmenu: {
+    margin: 30,
+    width: 150,
+    height: 150,
+  },
 });
 
 AppRegistry.registerComponent('Ediphy360', () => Ediphy360);
+AppRegistry.registerComponent('Proyector', () => Proyector);
