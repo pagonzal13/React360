@@ -56,6 +56,9 @@ export default class Ediphy360 extends React.Component {
     this.escucharConexion();
   }
 
+  _showImgs = () => {
+      //Pasar prop true a Proyector para que muestre las imágenes que tiene en su arrayImgs (antes, key e img = undefined)
+  }
   _playAudio = () => {
     //console.log("Empieza el audio de ambiente");
     AudioModule.playEnvironmental({
@@ -68,10 +71,6 @@ export default class Ediphy360 extends React.Component {
     AudioModule.stopEnvironmental();
   };
 
-  _onItemImgMenuClick = () => {
-    
-  }
-
   render() {
     
     return (
@@ -79,11 +78,11 @@ export default class Ediphy360 extends React.Component {
 
         <Background imgBack={this.state.imgBack} format={this.state.format} />
         <BackgroundAudio playAudio={this.state.playAudio} />
-
-        <VrButton onClick={this._onItemImgMenuClick}>
-          <Image style={styles.imgmenu} source={asset('icons/360-photography-icon.jpg')} />
+      
+        <VrButton onClick={this._showImgs}>
+          <Image style={styles.imgMenu} source={asset('icons/lecture.png')} />
         </VrButton>
-
+       
         <View style={styles.controls}>
           <VrButton onClick={this._playAudio} style={styles.button}>
               <Text style={styles.buttonText}>{'Play'}</Text>
@@ -101,9 +100,10 @@ export default class Ediphy360 extends React.Component {
 const styles = StyleSheet.create({
   panel: {
     // Fill the entire surface
-    width: 1000,
-    height: 600,
+    width: 900,
+    height: 625,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
@@ -128,11 +128,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  imgmenu: {
-    margin: 30,
-    width: 150,
-    height: 150,
-  },
+  imgMenu: {
+    margin: 15,
+    width: 100,
+    height: 100,
+  }
 });
 
 AppRegistry.registerComponent('Ediphy360', () => Ediphy360);
