@@ -45,11 +45,11 @@ export default class Ediphy360 extends React.Component {
        
       }
       if(datos.imagenBack){
-        try{
+        /*try{
           AsyncStorage.setItem('imgBack', datos.imagenBack);
         }catch(error){
           console.log("Error al guardar datos");
-        }
+        }*/
         this.setState({
           imgBack: datos.imagenBack
         });
@@ -61,7 +61,7 @@ export default class Ediphy360 extends React.Component {
 
   componentDidMount() {
     this.escucharConexion();
-    try {
+    /*try {
       const value = AsyncStorage.getItem('imgBack');
       value.then(valor =>{
         if(valor !== null){
@@ -71,7 +71,7 @@ export default class Ediphy360 extends React.Component {
       
     }catch(error){
       console.log("Error al leer datos");
-    }
+    }*/
     
   }
 
