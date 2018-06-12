@@ -27,7 +27,7 @@ export default class Ediphy360 extends React.Component {
     super();
 
     this.state = {
-      imgBack: undefined,
+      imgBack: '360_world.jpg',
       format:'2D',
       playAudio: false,
     };
@@ -41,12 +41,15 @@ export default class Ediphy360 extends React.Component {
             playAudio: datos.audioBack.play
           });
         this.escucharConexion();
+       
       }
       if(datos.imagenBack){
         this.setState({
           imgBack: datos.imagenBack
         });
         this.escucharConexion();
+        console.log("aaaaaa " + this.state.imgBack);
+        ConexionModule.updateStateIframe(this.state);
       }
       this.escucharConexion();
     });
@@ -72,7 +75,7 @@ export default class Ediphy360 extends React.Component {
   };
 
   render() {
-    
+    console.log("bbbbbb: " + this.state.imgBack);
     return (
       <View style={styles.panel}>
 

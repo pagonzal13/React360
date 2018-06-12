@@ -6,7 +6,9 @@ export default class ConexionModule extends Module {
     this._rnctx = ctx;
   }
 
-  // This method will be exposed to the React app
+    updateStateIframe(state){
+      window.parent.postMessage(state, '*'); 
+    }
 
     conexionIframe(cb) {
       const result = new Promise((resolve, reject) => {
