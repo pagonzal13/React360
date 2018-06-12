@@ -29,7 +29,7 @@ function init(bundle, parent, options = {}) {
     leftPanel,
   );
   // Load the initial environment
-  r360.compositor.setBackground(r360.getAssetURL('360_world.jpg'));
+  r360.compositor.setBackground(r360.getAssetURL(''));
 }
 
 window.React360 = {init};

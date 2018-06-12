@@ -8,6 +8,7 @@ import {
   VrButton,
   Image,
   asset,
+  AsyncStorage,
 } from 'react-360';
 
 import Background from './components/Background.js';
@@ -44,12 +45,15 @@ export default class Ediphy360 extends React.Component {
        
       }
       if(datos.imagenBack){
+        try{
+          AsyncStorage.setItem('imgBack', datos.imagenBack);
+        }catch(error){
+          console.log("Error al guardar datos");
+        }
         this.setState({
           imgBack: datos.imagenBack
         });
         this.escucharConexion();
-        console.log("aaaaaa " + this.state.imgBack);
-        ConexionModule.updateStateIframe(this.state);
       }
       this.escucharConexion();
     });
@@ -57,6 +61,18 @@ export default class Ediphy360 extends React.Component {
 
   componentDidMount() {
     this.escucharConexion();
+    try {
+      const value = AsyncStorage.getItem('imgBack');
+      value.then(valor =>{
+        if(valor !== null){
+          this.setState({ imgBack: valor });
+        }
+      });
+      
+    }catch(error){
+      console.log("Error al leer datos");
+    }
+    
   }
 
   _showImgs = () => {
@@ -75,7 +91,6 @@ export default class Ediphy360 extends React.Component {
   };
 
   render() {
-    console.log("bbbbbb: " + this.state.imgBack);
     return (
       <View style={styles.panel}>
 

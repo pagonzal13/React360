@@ -6,10 +6,6 @@ export default class ConexionModule extends Module {
     this._rnctx = ctx;
   }
 
-    updateStateIframe(state){
-      window.parent.postMessage(state, '*'); 
-    }
-
     conexionIframe(cb) {
       const result = new Promise((resolve, reject) => {
         window.addEventListener("message",  function(event) {
