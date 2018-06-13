@@ -10,6 +10,7 @@ export default class ConexionModule extends Module {
       const result = new Promise((resolve, reject) => {
         window.addEventListener("message",  function(event) {
           //console.log(event);
+          console.log("Llegan datos al iframe!");
           var winSource = event.source;
           if(event.data.audioBack){
             //console.log("(iframe) ha llegado esto: " + event.data.audioBack);

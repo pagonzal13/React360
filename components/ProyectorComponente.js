@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
+    display: 'none',
   },
   flatpanelText: {
     alignItems: 'center',

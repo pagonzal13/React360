@@ -12,7 +12,6 @@ import {
 } from 'react-360';
 
 import Background from './components/Background.js';
-import BackgroundAudio from './components/BackgroundAudio.js';
 import ProyectorComponente from './components/ProyectorComponente.js';
 
 const Proyector = () => (
@@ -28,18 +27,24 @@ export default class Ediphy360 extends React.Component {
     super();
 
     this.state = {
-      imgBack: '360_world.jpg',
+      imgBack: undefined,
       format:'2D',
       playAudio: false,
+      showAudio: false,
     };
     this.escucharConexion=this.escucharConexion.bind(this);
   }
 
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
+      /*try{
+          AsyncStorage.setItem('showAudio', datos.audioBack.play);
+        }catch(error){
+          console.log("Error al guardar datos");
+        }*/
       if(datos.audioBack){
           this.setState({
-            playAudio: datos.audioBack.play
+            showAudio: datos.audioBack.play
           });
         this.escucharConexion();
        
@@ -53,6 +58,7 @@ export default class Ediphy360 extends React.Component {
         this.setState({
           imgBack: datos.imagenBack
         });
+        console.log("Cambia la imagen a: "+this.state.imgBack);
         this.escucharConexion();
       }
       this.escucharConexion();
@@ -60,12 +66,19 @@ export default class Ediphy360 extends React.Component {
   }
 
   componentDidMount() {
+    console.log("Se monta el INDEXJS");
     this.escucharConexion();
     /*try {
-      const value = AsyncStorage.getItem('imgBack');
-      value.then(valor =>{
-        if(valor !== null){
-          this.setState({ imgBack: valor });
+      const valueI = AsyncStorage.getItem('imgBack');
+      valueI.then(valorI =>{
+        if(valorI !== null){
+          this.setState({ imgBack: valorI });
+        }
+      });
+      const valueA = AsyncStorage.getItem('showAudio');
+      valueA.then(valorA =>{
+        if(valorA !== null){
+          this.setState({ showAudio: valorA });
         }
       });
       
@@ -75,9 +88,6 @@ export default class Ediphy360 extends React.Component {
     
   }
 
-  _showImgs = () => {
-      //Pasar prop true a Proyector para que muestre las imágenes que tiene en su arrayImgs (antes, key e img = undefined)
-  }
   _playAudio = () => {
     //console.log("Empieza el audio de ambiente");
     AudioModule.playEnvironmental({
@@ -91,27 +101,34 @@ export default class Ediphy360 extends React.Component {
   };
 
   render() {
-    return (
-      <View style={styles.panel}>
-
-        <Background imgBack={this.state.imgBack} format={this.state.format} />
-        <BackgroundAudio playAudio={this.state.playAudio} />
-      
-        <VrButton onClick={this._showImgs}>
-          <Image style={styles.imgMenu} source={asset('icons/lecture.png')} />
-        </VrButton>
-       
-        <View style={styles.controls}>
-          <VrButton onClick={this._playAudio} style={styles.button}>
-              <Text style={styles.buttonText}>{'Play'}</Text>
-          </VrButton>
-          <VrButton onClick={this._stopAudio} style={styles.button}>
-              <Text style={styles.buttonText}>{'Stop'}</Text>
-          </VrButton>
+    console.log("La imagen es: "+this.state.imgBack);
+    if(this.state.showAudio){
+      return (
+        <View style={styles.panel}>
+  
+          <Background imgBack={this.state.imgBack} format={this.state.format} />
+         
+          <View style={styles.controls}>
+            <VrButton onClick={this._playAudio} style={styles.button}>
+                <Text style={styles.buttonText}>{'Play'}</Text>
+            </VrButton>
+            <VrButton onClick={this._stopAudio} style={styles.button}>
+                <Text style={styles.buttonText}>{'Stop'}</Text>
+            </VrButton>
+          </View>
+  
         </View>
-
-      </View>
-    );
+      );
+    }else{
+      return (
+        <View style={styles.panel}>
+  
+          <Background imgBack={this.state.imgBack} format={this.state.format} />
+      
+        </View>
+      );
+    }
+    
   }
 };
 
