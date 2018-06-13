@@ -29,6 +29,23 @@ function init(bundle, parent, options = {}) {
     leftPanel,
   );
   // Load the initial environment
+  /*Esto es una prueba para hacer fetch con las imagenes.
+  Quitarla de aquí y llevarmela al index o al Backgroud si quiero
+  utilizar urls al tuntún (no desde flicker, que ya no tienen lo del cors)
+  */
+  /*fetch('http://blog.topazlabs.com/wp-content/uploads/2013/06/Screen-shot-2013-06-17-at-3.37.16-PM.png', {
+    method: 'GET',
+    mode: 'no-cors',
+  }).then( function(response){
+      //console.log(response);
+      return response.blob();
+    }).then(function(blob){
+      //console.log(blob);
+      var objectURL = URL.createObjectURL(blob);
+      //console.log(objectURL);
+      //r360.compositor.setBackground(objectURL);
+    }
+    );*/
   r360.compositor.setBackground('');
 
 }

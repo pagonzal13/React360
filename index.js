@@ -58,7 +58,7 @@ export default class Ediphy360 extends React.Component {
         this.setState({
           imgBack: datos.imagenBack
         });
-        console.log("Cambia la imagen a: "+this.state.imgBack);
+        //console.log("Cambia la imagen a: "+this.state.imgBack);
         this.escucharConexion();
       }
       this.escucharConexion();
@@ -66,7 +66,6 @@ export default class Ediphy360 extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Se monta el INDEXJS");
     this.escucharConexion();
     /*try {
       const valueI = AsyncStorage.getItem('imgBack');
@@ -101,7 +100,7 @@ export default class Ediphy360 extends React.Component {
   };
 
   render() {
-    console.log("La imagen es: "+this.state.imgBack);
+    //console.log("La imagen es: "+this.state.imgBack);
     if(this.state.showAudio){
       return (
         <View style={styles.panel}>
