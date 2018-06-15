@@ -5,7 +5,7 @@ import {Location, ReactInstance, Surface} from 'react-360-web';
 import ConexionModule from './ConexionModule';
 
 const leftPanel = new Surface(700, 400, Surface.SurfaceShape.Flat);
-leftPanel.setAngle( 
+leftPanel.setAngle(
   -1.4, /* horiz angle */
   0 /* vertical angle */
 );
@@ -33,19 +33,26 @@ function init(bundle, parent, options = {}) {
   Quitarla de aquí y llevarmela al index o al Backgroud si quiero
   utilizar urls al tuntún (no desde flicker, que ya no tienen lo del cors)
   */
-  /*fetch('http://blog.topazlabs.com/wp-content/uploads/2013/06/Screen-shot-2013-06-17-at-3.37.16-PM.png', {
+  fetch('https://static3.bigstockphoto.com/2/9/5/large1500/59243342.jpg', {
     method: 'GET',
-    mode: 'no-cors',
-  }).then( function(response){
+      mode:'no-cors',
+   }).then( function(response){
       //console.log(response);
       return response.blob();
     }).then(function(blob){
       //console.log(blob);
       var objectURL = URL.createObjectURL(blob);
-      //console.log(objectURL);
-      //r360.compositor.setBackground(objectURL);
+      console.log(objectURL);
+          const reader = new FileReader;
+          reader.onerror = (e)=>{console.error(e)};
+          reader.onload = () => {
+            console.log(reader.result)
+               r360.compositor.setBackground(reader.result);
+          };
+          reader.readAsDataURL(blob);
+
     }
-    );*/
+    );
   r360.compositor.setBackground('');
 
 }
