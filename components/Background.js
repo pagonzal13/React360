@@ -13,11 +13,16 @@ export default class Background extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     //console.log("Está recibiendo nuevas props");
+    let cambiaURL = false;
+    if(nextProps.urlBack !== this.props.urlBack) cambiaURL = true;
     if (
-      nextProps.imgBack !== this.props.imgBack ||
-      nextProps.format !== this.props.format
+      nextProps.imgBack !== this.props.imgBack
     ) {
       Environment.setBackgroundImage(asset(nextProps.imgBack), {format: nextProps.format});
+    }else if (
+      nextProps.urlBack !== this.props.urlBack
+    ){
+      Environment.setBackgroundImage(nextProps.urlBack, {format: nextProps.format});
     }
   }
 

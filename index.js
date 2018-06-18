@@ -28,6 +28,7 @@ export default class Ediphy360 extends React.Component {
 
     this.state = {
       imgBack: undefined,
+      urlBack: undefined,
       format:'2D',
       playAudio: false,
       showAudio: false,
@@ -48,6 +49,13 @@ export default class Ediphy360 extends React.Component {
           });
         this.escucharConexion();
        
+      }
+      if(datos.urlBack){
+        this.setState({
+          urlBack: datos.urlBack
+        });
+        //console.log("Cambia la imagen a: "+this.state.imgBack);
+        this.escucharConexion();
       }
       if(datos.imagenBack){
         /*try{
@@ -105,7 +113,7 @@ export default class Ediphy360 extends React.Component {
       return (
         <View style={styles.panel}>
   
-          <Background imgBack={this.state.imgBack} format={this.state.format} />
+          <Background imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
          
           <View style={styles.controls}>
             <VrButton onClick={this._playAudio} style={styles.button}>
@@ -122,7 +130,7 @@ export default class Ediphy360 extends React.Component {
       return (
         <View style={styles.panel}>
   
-          <Background imgBack={this.state.imgBack} format={this.state.format} />
+          <Background imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
       
         </View>
       );

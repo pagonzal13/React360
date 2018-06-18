@@ -15,6 +15,10 @@ export default class ConexionModule extends Module {
             //console.log("(iframe) ha llegado esto: " + event.data.audioBack);
             winSource.postMessage(JSON.stringify({msg:"Estado audio recibido correctamente"}), event.origin);
           }
+          if(event.data.urlBack){
+             //console.log("(iframe) ha llegado esto: " + event.data.urlBack);
+             winSource.postMessage(JSON.stringify({msg:"Url Back recibida correctamente"}), event.origin);
+          }
           if(event.data.imagenBack){
             //console.log("(iframe) ha llegado esto: " + event.data.imagenBack);
             winSource.postMessage(JSON.stringify({msg:"Imagen Back recibida correctamente"}), event.origin);

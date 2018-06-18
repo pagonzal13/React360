@@ -33,7 +33,7 @@ function init(bundle, parent, options = {}) {
   Quitarla de aquí y llevarmela al index o al Backgroud si quiero
   utilizar urls al tuntún (no desde flicker, que ya no tienen lo del cors)
   */
-  fetch('https://static3.bigstockphoto.com/2/9/5/large1500/59243342.jpg', {
+  /*fetch('https://static3.bigstockphoto.com/2/9/5/large1500/59243342.jpg', {
     method: 'GET',
       mode:'no-cors',
    }).then( function(response){
@@ -52,8 +52,8 @@ function init(bundle, parent, options = {}) {
           reader.readAsDataURL(blob);
 
     }
-    );
-  r360.compositor.setBackground('');
+    );*/
+  r360.compositor.setBackground('https://www.jamesfmackenzie.com/img/posts/equirectangular-pano.png');
 
 }
 
