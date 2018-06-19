@@ -29,31 +29,7 @@ function init(bundle, parent, options = {}) {
     leftPanel,
   );
   // Load the initial environment
-  /*Esto es una prueba para hacer fetch con las imagenes.
-  Quitarla de aquí y llevarmela al index o al Backgroud si quiero
-  utilizar urls al tuntún (no desde flicker, que ya no tienen lo del cors)
-  */
-  /*fetch('https://static3.bigstockphoto.com/2/9/5/large1500/59243342.jpg', {
-    method: 'GET',
-      mode:'no-cors',
-   }).then( function(response){
-      //console.log(response);
-      return response.blob();
-    }).then(function(blob){
-      //console.log(blob);
-      var objectURL = URL.createObjectURL(blob);
-      console.log(objectURL);
-          const reader = new FileReader;
-          reader.onerror = (e)=>{console.error(e)};
-          reader.onload = () => {
-            console.log(reader.result)
-               r360.compositor.setBackground(reader.result);
-          };
-          reader.readAsDataURL(blob);
-
-    }
-    );*/
-  r360.compositor.setBackground('https://www.jamesfmackenzie.com/img/posts/equirectangular-pano.png');
+  r360.compositor.setBackground('');
 
 }
 

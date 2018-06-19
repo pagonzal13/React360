@@ -47,15 +47,11 @@ export default class Ediphy360 extends React.Component {
           this.setState({
             showAudio: datos.audioBack.play
           });
-        this.escucharConexion();
-       
       }
       if(datos.urlBack){
         this.setState({
           urlBack: datos.urlBack
         });
-        //console.log("Cambia la imagen a: "+this.state.imgBack);
-        this.escucharConexion();
       }
       if(datos.imagenBack){
         /*try{
@@ -66,8 +62,6 @@ export default class Ediphy360 extends React.Component {
         this.setState({
           imgBack: datos.imagenBack
         });
-        //console.log("Cambia la imagen a: "+this.state.imgBack);
-        this.escucharConexion();
       }
       this.escucharConexion();
     });
@@ -96,10 +90,14 @@ export default class Ediphy360 extends React.Component {
   }
 
   _playAudio = () => {
-    //console.log("Empieza el audio de ambiente");
-    AudioModule.playEnvironmental({
-      source: asset('audio/Blue_Jacket.mp3'),
-      volume: 0.7,
+    let visor = ConexionModule.enVisor(visor => {
+      if(visor === 'true'){
+        //console.log("Empieza el audio de ambiente");
+        AudioModule.playEnvironmental({
+          source: asset('audio/Blue_Jacket.mp3'),
+          volume: 0.7,
+        });
+      }
     });
   };
   _stopAudio = () => {

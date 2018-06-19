@@ -35,8 +35,29 @@ export default class ConexionModule extends Module {
         }
       });
         let query = decodeURIComponent(window.location.search);
-        let id = query.substring(4, query.length);
-        window.parent.postMessage(JSON.stringify({msg: 'load', id: id}),"*")
+        try{
+          let myurl = query.split("?id=");
+          var sinNomId = myurl[1];
+          var sinNomVisor = sinNomId.split("&visor=");
+          var id = sinNomVisor[0];
+          
+          window.parent.postMessage(JSON.stringify({msg: 'load', id: id}),"*")
+        }catch(e){//console.log("No hay query");
+      }
+        
     }
+    enVisor (cb){
+      let query = decodeURIComponent(window.location.search);
+      try{
+        let myurl = query.split("?id=");
+        var sinNomId = myurl[1];
+        var sinNomVisor = sinNomId.split("&visor=");
+        var visor = sinNomVisor[1];
 
+        if (this._rnctx) {
+          this._rnctx.invokeCallback(cb, [visor]);
+        }
+      }catch(e){//console.log("No hay query");
+    }
+    }
 }
