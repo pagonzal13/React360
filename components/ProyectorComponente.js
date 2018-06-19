@@ -34,7 +34,7 @@ export default class ProyectorComponente extends React.Component {
     super();
     this.state = {
       keySelected: 0,
-      currentImg: 'madrid.jpg',
+      currentImg: undefined,
     };
     this.escucharConexion=this.escucharConexion.bind(this);
     this.onPrevClick=this.onPrevClick.bind(this);
@@ -43,11 +43,10 @@ export default class ProyectorComponente extends React.Component {
 
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
-      if(datos.showImg){
+      if(datos.urlPanel){
           this.setState({
-            currentImg: datos.showImg
+            currentImg: datos.urlPanel
           });
-        this.escucharConexion();
       }
       this.escucharConexion();
     });
@@ -73,26 +72,27 @@ export default class ProyectorComponente extends React.Component {
   }
 
   render() {
-    /*if (!this.state.currentImg) {
+    if (!this.state.currentImg) {
       return (
-        <View style={styles.flatpanel}>
+        <View style={styles.none}>
           <Text style={styles.flatpanelText}>Loading...</Text>
         </View>
       );
-    }*/
-    return (
-      <View style={styles.flatpanel}>
-        <View style={styles.controls}>
-          <VrButton onClick={this.onPrevClick}>
-            <Image style={styles.iconPrev} source={asset('icons/prev.png')} />
-          </VrButton>
-          <Image style={styles.img} source={asset('proyectorImgs/' + this.state.currentImg)} />
-          <VrButton onClick={this.onNextClick}>
-            <Image style={styles.iconNext} source={asset('icons/next.png')} />
-          </VrButton>
-        </View>
-  	  </View>
-    );
+    }else{
+          return (
+            <View style={styles.flatpanel}>
+              <View style={styles.controls}>
+                <VrButton onClick={this.onPrevClick}>
+                  <Image style={styles.iconPrev} source={asset('icons/prev.png')} />
+                </VrButton>
+                <Image style={styles.img} source={{uri: this.state.currentImg}} />
+                <VrButton onClick={this.onNextClick}>
+                  <Image style={styles.iconNext} source={asset('icons/next.png')} />
+                </VrButton>
+              </View>
+            </View>
+          );
+    }
   }
 };
 
@@ -105,6 +105,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
+    
+  },
+  none: {
     display: 'none',
   },
   flatpanelText: {

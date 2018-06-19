@@ -38,17 +38,23 @@ export default class Ediphy360 extends React.Component {
 
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
-      /*try{
+      
+      if(datos.audioBack){
+        /*try{
           AsyncStorage.setItem('showAudio', datos.audioBack.play);
         }catch(error){
           console.log("Error al guardar datos");
         }*/
-      if(datos.audioBack){
           this.setState({
             showAudio: datos.audioBack.play
           });
       }
       if(datos.urlBack){
+        /*try{
+          AsyncStorage.setItem('urlBack', datos.urlBack);
+        }catch(error){
+          console.log("Error al guardar datos");
+        }*/
         this.setState({
           urlBack: datos.urlBack
         });
@@ -63,6 +69,7 @@ export default class Ediphy360 extends React.Component {
           imgBack: datos.imagenBack
         });
       }
+      
       this.escucharConexion();
     });
   }
@@ -71,18 +78,23 @@ export default class Ediphy360 extends React.Component {
     this.escucharConexion();
     /*try {
       const valueI = AsyncStorage.getItem('imgBack');
-      valueI.then(valorI =>{
-        if(valorI !== null){
-          this.setState({ imgBack: valorI });
+      valueI.then(valor =>{
+        if(valor !== null){
+          this.setState({ imgBack: valor });
         }
       });
       const valueA = AsyncStorage.getItem('showAudio');
-      valueA.then(valorA =>{
-        if(valorA !== null){
-          this.setState({ showAudio: valorA });
+      valueA.then(valor =>{
+        if(valor !== null){
+          this.setState({ showAudio: valor });
         }
       });
-      
+      const valueU = AsyncStorage.getItem('urlBack');
+      valueU.then(valor =>{
+        if(valor !== null){
+          this.setState({ urlBack: valor });
+        }
+      });
     }catch(error){
       console.log("Error al leer datos");
     }*/

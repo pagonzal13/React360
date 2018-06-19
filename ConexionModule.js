@@ -23,7 +23,10 @@ export default class ConexionModule extends Module {
             //console.log("(iframe) ha llegado esto: " + event.data.imagenBack);
             winSource.postMessage(JSON.stringify({msg:"Imagen Back recibida correctamente"}), event.origin);
           }
-
+          if(event.data.urlPanel){
+            //console.log("(iframe) ha llegado esto: " + event.data.urlPanel);
+            winSource.postMessage(JSON.stringify({msg:"Url Panel recibida correctamente"}), event.origin);
+          }
           resolve(event.data);
         }),
         function e(){console.log("Problemas con la promesa");};
