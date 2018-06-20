@@ -32,6 +32,7 @@ export default class Mark extends React.Component {
             {translate: [3,3,3]}
             ]}}
     />
+ 
       <Text>{this.props.title}</Text>
       </VrButton>
     );
@@ -60,5 +61,4 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
   }
-  
 });
