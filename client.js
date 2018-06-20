@@ -10,7 +10,9 @@ leftPanel.setAngle(
   0 /* vertical angle */
 );
 
+ 
 function init(bundle, parent, options = {}) {
+
   const r360 = new ReactInstance(bundle, parent, {
     // Add custom options here
     fullScreen: true,
@@ -19,7 +21,7 @@ function init(bundle, parent, options = {}) {
     ],
     ...options,
   });
-
+  
   r360.renderToSurface(
     r360.createRoot('Ediphy360', { /* initial props */ }),
     r360.getDefaultSurface()
@@ -28,7 +30,6 @@ function init(bundle, parent, options = {}) {
     r360.createRoot('Proyector'),
     leftPanel,
   );
-  // Load the initial environment
   r360.compositor.setBackground('');
 
 }

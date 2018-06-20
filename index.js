@@ -13,10 +13,11 @@ import {
 
 import Background from './components/Background.js';
 import ProyectorComponente from './components/ProyectorComponente.js';
-
+import Mark from './components/Mark.js';
 const Proyector = () => (
   <ProyectorComponente/>
 );
+
 // Extract our custom native module
 const ConexionModule = NativeModules.ConexionModule;
 const {AudioModule} = NativeModules;
@@ -32,6 +33,7 @@ export default class Ediphy360 extends React.Component {
       format:'2D',
       playAudio: false,
       showAudio: false,
+      marks: {},
     };
     this.escucharConexion=this.escucharConexion.bind(this);
   }
@@ -68,6 +70,12 @@ export default class Ediphy360 extends React.Component {
         this.setState({
           imgBack: datos.imagenBack
         });
+      }
+      if (datos.marks) {
+        console.log(datos.marks)
+        this.setState({
+          marks: datos.marks
+        })
       }
       
       this.escucharConexion();
@@ -118,34 +126,33 @@ export default class Ediphy360 extends React.Component {
   };
 
   render() {
-    //console.log("La imagen es: "+this.state.imgBack);
-    if(this.state.showAudio){
+     let marks = [];
+     for (let mark in this.state.marks) {
+        marks.push(this.state.marks[mark])
+     }
       return (
         <View style={styles.panel}>
   
           <Background imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
-         
-          <View style={styles.controls}>
+          {this.state.showAudio ? (
+            <View style={styles.controls}>
             <VrButton onClick={this._playAudio} style={styles.button}>
                 <Text style={styles.buttonText}>{'Play'}</Text>
             </VrButton>
             <VrButton onClick={this._stopAudio} style={styles.button}>
                 <Text style={styles.buttonText}>{'Stop'}</Text>
             </VrButton>
-          </View>
-  
+          </View>) : null}
+
+          {marks.map((mark,key)=>{
+            return <Mark key={key} {...mark} onClick={this.sendMarkEvent}/>
+          })}
         </View>
       );
-    }else{
-      return (
-        <View style={styles.panel}>
-  
-          <Background imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
-      
-        </View>
-      );
-    }
-    
+  }
+  sendMarkEvent(mark, box){
+    console.log(mark, box);
+    ConexionModule.handleMark(mark, box);
   }
 };
 
@@ -158,6 +165,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    overflow: 'visible'
   },
   controls: {
     flexDirection: 'row',

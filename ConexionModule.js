@@ -4,28 +4,33 @@ export default class ConexionModule extends Module {
   constructor(ctx) {
     super('ConexionModule'); // Makes this module available at NativeModules.MyModule
     this._rnctx = ctx;
+    this.winSource = undefined;
+    this.origin = undefined;
+    this.handleMark = this.handleMark.bind(this);
   }
 
     conexionIframe(cb) {
       const result = new Promise((resolve, reject) => {
         window.addEventListener("message",  function(event) {
           //console.log(event);
-          var winSource = event.source;
+          this.winSource = event.source;
+          this.origin = event.origin;
+          console.log(event.source, event.origin)
           if(event.data.audioBack){
             //console.log("(iframe) ha llegado esto: " + event.data.audioBack);
-            winSource.postMessage(JSON.stringify({msg:"Estado audio recibido correctamente"}), event.origin);
+            this.winSource.postMessage(JSON.stringify({msg:"Estado audio recibido correctamente"}), this.origin);
           }
           if(event.data.urlBack){
              //console.log("(iframe) ha llegado esto: " + event.data.urlBack);
-             winSource.postMessage(JSON.stringify({msg:"Url Back recibida correctamente"}), event.origin);
+             this.winSource.postMessage(JSON.stringify({msg:"Url Back recibida correctamente"}), this.origin);
           }
           if(event.data.imagenBack){
             //console.log("(iframe) ha llegado esto: " + event.data.imagenBack);
-            winSource.postMessage(JSON.stringify({msg:"Imagen Back recibida correctamente"}), event.origin);
+            this.winSource.postMessage(JSON.stringify({msg:"Imagen Back recibida correctamente"}), this.origin);
           }
           if(event.data.urlPanel){
             //console.log("(iframe) ha llegado esto: " + event.data.urlPanel);
-            winSource.postMessage(JSON.stringify({msg:"Url Panel recibida correctamente"}), event.origin);
+            this.winSource.postMessage(JSON.stringify({msg:"Url Panel recibida correctamente"}), this.origin);
           }
           resolve(event.data);
         }),
@@ -44,7 +49,7 @@ export default class ConexionModule extends Module {
           var sinNomVisor = sinNomId.split("&visor=");
           var id = sinNomVisor[0];
           
-          window.parent.postMessage(JSON.stringify({msg: 'load', id: id}),"*")
+          window.parent.postMessage(JSON.stringify({msg: 'LOAD', id: id}),"*")
         }catch(e){//console.log("No hay query");
       }
         
@@ -62,5 +67,10 @@ export default class ConexionModule extends Module {
         }
       }catch(e){//console.log("No hay query");
     }
+    }
+
+    handleMark(mark, id){
+      console.log(window.parent)
+        window.parent.postMessage(JSON.stringify({msg:"MARK", id, mark}), "*");
     }
 }
