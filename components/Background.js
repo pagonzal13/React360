@@ -2,7 +2,10 @@ import React from 'react';
 import {
   Environment,
   asset,
+  View,
 } from 'react-360';
+
+import Mark from './Mark.js';
 
 export default class Background extends React.Component {
 
@@ -14,20 +17,17 @@ export default class Background extends React.Component {
   componentWillReceiveProps(nextProps) {
     //console.log("Está recibiendo nuevas props");
     let cambiaURL = false;
-    if(nextProps.urlBack !== this.props.urlBack) cambiaURL = true;
-    if (
-      nextProps.imgBack !== this.props.imgBack
-    ) {
+    if (nextProps.urlBack !== this.props.urlBack) cambiaURL = true;
+    if ( nextProps.imgBack !== this.props.imgBack ) {
       Environment.setBackgroundImage(asset(nextProps.imgBack), {format: nextProps.format});
-    }else if (
-      nextProps.urlBack !== this.props.urlBack
-    ){
+    } else if ( nextProps.urlBack !== this.props.urlBack ){
       Environment.setBackgroundImage(nextProps.urlBack, {format: nextProps.format});
     }
   }
 
   render() {
-    return null;
+    
+    return null
   }
 };
 
