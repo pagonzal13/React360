@@ -13,9 +13,12 @@ import {
 
 import Background from './components/Background.js';
 import ProyectorComponente from './components/ProyectorComponente.js';
-import Mark from './components/Mark.js';
+import MarksComponente from './components/Marks.js';
 const Proyector = () => (
   <ProyectorComponente/>
+);
+const Marks = () => (
+  <MarksComponente/>
 );
 
 // Extract our custom native module
@@ -33,7 +36,6 @@ export default class Ediphy360 extends React.Component {
       format:'2D',
       playAudio: false,
       showAudio: false,
-      marks: {},
     };
     this.escucharConexion=this.escucharConexion.bind(this);
   }
@@ -71,12 +73,7 @@ export default class Ediphy360 extends React.Component {
           imgBack: datos.imagenBack
         });
       }
-      if (datos.marks) {
-        console.log(datos.marks)
-        this.setState({
-          marks: datos.marks
-        })
-      }
+     
       
       this.escucharConexion();
     });
@@ -103,6 +100,12 @@ export default class Ediphy360 extends React.Component {
           this.setState({ urlBack: valor });
         }
       });
+      const valueM = AsyncStorage.getItem('marks');
+      valueM.then(valor =>{
+        if(valor !== null){
+          this.setState({ marks: valor });
+        }
+      });
     }catch(error){
       console.log("Error al leer datos");
     }*/
@@ -126,10 +129,7 @@ export default class Ediphy360 extends React.Component {
   };
 
   render() {
-     let marks = [];
-     for (let mark in this.state.marks) {
-        marks.push(this.state.marks[mark])
-     }
+    
       return (
         <View style={styles.panel}>
   
@@ -143,16 +143,9 @@ export default class Ediphy360 extends React.Component {
                 <Text style={styles.buttonText}>{'Stop'}</Text>
             </VrButton>
           </View>) : null}
-
-          {marks.map((mark,key)=>{
-            return <Mark key={key} {...mark} onClick={this.sendMarkEvent}/>
-          })}
+          
         </View>
       );
-  }
-  sendMarkEvent(mark, box){
-    console.log(mark, box);
-    ConexionModule.handleMark(mark, box);
   }
 };
 
@@ -197,3 +190,4 @@ const styles = StyleSheet.create({
 
 AppRegistry.registerComponent('Ediphy360', () => Ediphy360);
 AppRegistry.registerComponent('Proyector', () => Proyector);
+AppRegistry.registerComponent('Marks', () => Marks);

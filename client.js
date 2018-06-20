@@ -10,7 +10,6 @@ leftPanel.setAngle(
   0 /* vertical angle */
 );
 
- 
 function init(bundle, parent, options = {}) {
 
   const r360 = new ReactInstance(bundle, parent, {
@@ -21,7 +20,10 @@ function init(bundle, parent, options = {}) {
     ],
     ...options,
   });
-  
+  r360.renderToLocation(
+    r360.createRoot('Marks'),
+    r360.getDefaultLocation(),
+  );
   r360.renderToSurface(
     r360.createRoot('Ediphy360', { /* initial props */ }),
     r360.getDefaultSurface()

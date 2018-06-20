@@ -15,7 +15,7 @@ export default class ConexionModule extends Module {
           //console.log(event);
           this.winSource = event.source;
           this.origin = event.origin;
-          console.log(event.source, event.origin)
+
           if(event.data.audioBack){
             //console.log("(iframe) ha llegado esto: " + event.data.audioBack);
             this.winSource.postMessage(JSON.stringify({msg:"Estado audio recibido correctamente"}), this.origin);
@@ -31,6 +31,10 @@ export default class ConexionModule extends Module {
           if(event.data.urlPanel){
             //console.log("(iframe) ha llegado esto: " + event.data.urlPanel);
             this.winSource.postMessage(JSON.stringify({msg:"Url Panel recibida correctamente"}), this.origin);
+          }
+          if(event.data.marks){
+            //console.log("(iframe) ha llegado esto: " + event.data.marks);
+            this.winSource.postMessage(JSON.stringify({msg:"Marks recibidas correctamente"}), this.origin);
           }
           resolve(event.data);
         }),
@@ -70,7 +74,6 @@ export default class ConexionModule extends Module {
     }
 
     handleMark(mark, id){
-      console.log(window.parent)
         window.parent.postMessage(JSON.stringify({msg:"MARK", id, mark}), "*");
     }
 }

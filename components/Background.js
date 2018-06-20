@@ -5,7 +5,6 @@ import {
   View,
 } from 'react-360';
 
-import Mark from './Mark.js';
 
 export default class Background extends React.Component {
 
