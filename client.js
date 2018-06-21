@@ -3,7 +3,6 @@
 
 import {Location, ReactInstance, Surface} from 'react-360-web';
 import ConexionModule from './ConexionModule';
-
 const leftPanel = new Surface(700, 400, Surface.SurfaceShape.Flat);
 leftPanel.setAngle(
   -1.4, /* horiz angle */

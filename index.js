@@ -9,6 +9,7 @@ import {
   Image,
   asset,
   AsyncStorage,
+  VrHeadModel
 } from 'react-360';
 
 import Background from './components/Background.js';
@@ -37,6 +38,7 @@ export default class Ediphy360 extends React.Component {
       playAudio: false,
       showAudio: false,
     };
+    console.log(VrHeadModel)
     this.escucharConexion=this.escucharConexion.bind(this);
   }
 
@@ -109,7 +111,14 @@ export default class Ediphy360 extends React.Component {
     }catch(error){
       console.log("Error al leer datos");
     }*/
-    
+
+    setInterval(()=>{
+      let currRot = VrHeadModel.rotation();
+      console.log(currRot)
+       ConexionModule.handlePosition(currRot);
+    },5000)
+
+
   }
 
   _playAudio = () => {
@@ -133,7 +142,7 @@ export default class Ediphy360 extends React.Component {
       return (
         <View style={styles.panel}>
   
-          <Background imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
+          <Background rotation={VrHeadModel.rotation()} imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
           {this.state.showAudio ? (
             <View style={styles.controls}>
             <VrButton onClick={this._playAudio} style={styles.button}>
@@ -143,6 +152,7 @@ export default class Ediphy360 extends React.Component {
                 <Text style={styles.buttonText}>{'Stop'}</Text>
             </VrButton>
           </View>) : null}
+
           
         </View>
       );
