@@ -40,21 +40,21 @@ export default class AnimatedMark extends React.Component {
   render() {
     let coorX = Number(this.props.value.split(",")[0]);
     let coorY = Number(this.props.value.split(",")[1]);
+    let coorZ = Number(this.props.value.split(",")[2]);
     
       return (
         <VrButton style={styles.mark} onClick={this.handleMarkClick}>
         
           <AnimatedEntity
             style={{
-              color: '#00ff00',
+              color: this.props.color,
               transform: [
-                {translate: [coorX/10,coorY/10,-6]},
+                {translate: [coorX ,coorY, coorZ]},
                 {scale: 0.4},
                 {rotateY: this.rotation}
               ]}}
             source={{
-              obj: asset('icons/model.obj'),
-              mtl: asset('icons/materials.mtl'),
+              obj: asset('icons/model.obj')
             }}
           />  
           

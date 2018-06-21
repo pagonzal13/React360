@@ -22,10 +22,11 @@ export default class Background extends React.Component {
     } else if ( nextProps.urlBack !== this.props.urlBack ){
       Environment.setBackgroundImage(nextProps.urlBack, {format: nextProps.format});
     }
+    console.log(nextProps)
   }
 
   render() {
-    
+    console.log(this.props)
     return null
   }
 };

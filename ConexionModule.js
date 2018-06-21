@@ -1,5 +1,5 @@
 import {Module} from 'react-360-web';
-
+let idBox = null;
 export default class ConexionModule extends Module {
   constructor(ctx) {
     super('ConexionModule'); // Makes this module available at NativeModules.MyModule
@@ -52,7 +52,7 @@ export default class ConexionModule extends Module {
           var sinNomId = myurl[1];
           var sinNomVisor = sinNomId.split("&visor=");
           var id = sinNomVisor[0];
-          
+          idBox = id;
           window.parent.postMessage(JSON.stringify({msg: 'LOAD', id: id}),"*")
         }catch(e){//console.log("No hay query");
       }
@@ -65,15 +65,20 @@ export default class ConexionModule extends Module {
         var sinNomId = myurl[1];
         var sinNomVisor = sinNomId.split("&visor=");
         var visor = sinNomVisor[1];
-
         if (this._rnctx) {
           this._rnctx.invokeCallback(cb, [visor]);
         }
-      }catch(e){//console.log("No hay query");
+      }catch(e){//console.log("No hay query"); 
     }
     }
 
     handleMark(mark, id){
         window.parent.postMessage(JSON.stringify({msg:"MARK", id, mark}), "*");
+    }
+    handlePosition(position){
+      console.log(idBox)
+        window.parent.postMessage(JSON.stringify({msg:"POSITION", id: idBox, position}), "*");
+
+
     }
 }
