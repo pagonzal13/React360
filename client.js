@@ -4,7 +4,7 @@
 import {Location, ReactInstance, Surface} from 'react-360-web';
 import ConexionModule from './ConexionModule';
 
-const leftPanel = new Surface(700, 400, Surface.SurfaceShape.Flat);
+const leftPanel = new Surface(700, 600, Surface.SurfaceShape.Flat);
 leftPanel.setAngle(
   -1.4, /* horiz angle */
   0 /* vertical angle */
@@ -32,7 +32,7 @@ function init(bundle, parent, options = {}) {
     r360.createRoot('Proyector'),
     leftPanel,
   );
-  r360.compositor.setBackground('');
+  r360.compositor.setBackground('./static_assets/360_world.jpg');
 
 }
 

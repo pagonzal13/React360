@@ -57,6 +57,7 @@ export default class AnimatedMark extends React.Component {
               mtl: asset('icons/materials.mtl'),
             }}
           />  
+          
         </VrButton>
       )
 
@@ -80,6 +81,10 @@ export default class AnimatedMark extends React.Component {
 
 const styles = StyleSheet.create({
   mark: {
+  },
+  texto: {
+    color: 'red',
+    fontSize: 10,
   },
   img: {
     margin: 10,

@@ -152,8 +152,8 @@ export default class Ediphy360 extends React.Component {
 const styles = StyleSheet.create({
   panel: {
     // Fill the entire surface
-    width: 900,
-    height: 625,
+    width: 200,
+    height: 90,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -164,9 +164,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 20,
     width: 170,
-    padding: 5,
-    margin: 30,
   },
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
@@ -180,11 +179,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  imgMenu: {
-    margin: 15,
-    width: 100,
-    height: 100,
   }
 });
 
