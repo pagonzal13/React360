@@ -14,12 +14,16 @@ import {
 
 import Background from './components/Background.js';
 import ProyectorComponente from './components/ProyectorComponente.js';
+import PopUpFailComponente from './components/PopUpFailComponente.js';
 import MarksComponente from './components/Marks.js';
 const Proyector = () => (
   <ProyectorComponente/>
 );
 const Marks = () => (
   <MarksComponente/>
+);
+const PopUpFail = () => (
+  <PopUpFailComponente/>
 );
 
 // Extract our custom native module
@@ -114,7 +118,7 @@ export default class Ediphy360 extends React.Component {
 
     setInterval(()=>{
       let currRot = VrHeadModel.rotation();
-      console.log(currRot)
+      //console.log(currRot)
        ConexionModule.handlePosition(currRot);
     },5000)
 
@@ -140,10 +144,11 @@ export default class Ediphy360 extends React.Component {
   render() {
     
       return (
-        <View style={styles.panel}>
+        <View style={styles.panelForControls}>
   
-          <Background rotation={VrHeadModel.rotation()} imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
+          <Background imgBack={this.state.imgBack} urlBack={this.state.urlBack} format={this.state.format} />
           {this.state.showAudio ? (
+           
             <View style={styles.controls}>
             <VrButton onClick={this._playAudio} style={styles.button}>
                 <Text style={styles.buttonText}>{'Play'}</Text>
@@ -151,6 +156,7 @@ export default class Ediphy360 extends React.Component {
             <VrButton onClick={this._stopAudio} style={styles.button}>
                 <Text style={styles.buttonText}>{'Stop'}</Text>
             </VrButton>
+           
           </View>) : null}
 
           
@@ -160,7 +166,7 @@ export default class Ediphy360 extends React.Component {
 };
 
 const styles = StyleSheet.create({
-  panel: {
+  panelForControls: {
     // Fill the entire surface
     width: 200,
     height: 90,
@@ -168,7 +174,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    overflow: 'visible'
   },
   controls: {
     flexDirection: 'row',
@@ -195,3 +200,4 @@ const styles = StyleSheet.create({
 AppRegistry.registerComponent('Ediphy360', () => Ediphy360);
 AppRegistry.registerComponent('Proyector', () => Proyector);
 AppRegistry.registerComponent('Marks', () => Marks);
+AppRegistry.registerComponent('PopUpFail', () => PopUpFail);

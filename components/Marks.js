@@ -13,6 +13,7 @@ import {
 } from 'react-360';
 
 import AnimatedMark from './AnimatedMark.js';
+import PopUpFailComponente from './PopUpFailComponente.js';
 
 const ConexionModule = NativeModules.ConexionModule;
 
@@ -22,8 +23,11 @@ export default class Marks extends React.Component {
     super();
     this.state = {
       marks: {},
+      showPopUp: false,
+      textPopUp: "",
     };
     this.escucharConexion=this.escucharConexion.bind(this);
+    this.popUpEvent=this.popUpEvent.bind(this);
   }
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
@@ -50,15 +54,24 @@ export default class Marks extends React.Component {
       return null
     }else{
      let marcas =  marks.map((mark,key)=>{
-      return <AnimatedMark key={key} {...mark} onClick={this.sendMarkEvent}/>
+      return <AnimatedMark key={key} {...mark} onClick={this.sendMarkEvent} popUpEvent={this.popUpEvent}/>
       })
-      return <View>{marcas}</View>
+      return <View>{marcas}
+              <PopUpFailComponente show={this.state.showPopUp} text={this.state.textPopUp}/>
+      </View>
     }
 
   }
   sendMarkEvent(mark, box){
     console.log(mark, box);
     ConexionModule.handleMark(mark, box);
+  }
+  popUpEvent(text){
+    console.log("Es un popUp con este texto: " +text);
+    this.setState({
+      showPopUp: true,
+      textPopUp: text,
+    });
   }
 };
 

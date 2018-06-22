@@ -50,11 +50,11 @@ export default class AnimatedMark extends React.Component {
               color: this.props.color,
               transform: [
                 {translate: [coorX ,coorY, coorZ]},
-                {scale: 0.4},
+                {scale: 0.02},
                 {rotateY: this.rotation}
               ]}}
             source={{
-              obj: asset('icons/model.obj')
+              obj: asset('icons/modelHueco.obj'),
             }}
           />  
           
@@ -67,7 +67,7 @@ export default class AnimatedMark extends React.Component {
   handleMarkClick(){
       switch (this.props.connectMode) {
         case 'popup':
-          // TODO
+          this.props.popUpEvent(this.props.connection);
           console.log('POPUP');
           return;
         default:

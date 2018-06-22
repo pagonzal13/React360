@@ -32,6 +32,10 @@ export default class ConexionModule extends Module {
             //console.log("(iframe) ha llegado esto: " + event.data.urlPanel);
             this.winSource.postMessage(JSON.stringify({msg:"Url Panel recibida correctamente"}), this.origin);
           }
+          if(event.data.showPanel){
+            //console.log("(iframe) ha llegado esto: " + event.data.showPanel);
+            this.winSource.postMessage(JSON.stringify({msg:"Show Panel recibido correctamente"}), this.origin);
+          }
           if(event.data.marks){
             //console.log("(iframe) ha llegado esto: " + event.data.marks);
             this.winSource.postMessage(JSON.stringify({msg:"Marks recibidas correctamente"}), this.origin);
@@ -76,9 +80,7 @@ export default class ConexionModule extends Module {
         window.parent.postMessage(JSON.stringify({msg:"MARK", id, mark}), "*");
     }
     handlePosition(position){
-      console.log(idBox)
+      //console.log(idBox)
         window.parent.postMessage(JSON.stringify({msg:"POSITION", id: idBox, position}), "*");
-
-
     }
 }

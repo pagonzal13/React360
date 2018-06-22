@@ -12,29 +12,15 @@ import {
 
 const ConexionModule = NativeModules.ConexionModule;
 
-//Este array tendrá que reemplazarse por uno con las imagenes que elija el profesor en EDiphy
-const arrayImgs = [
-  {
-    key: 0,
-    currentImg: 'madrid.jpg',
-  },
-  {
-    key: 1,
-    currentImg: 'cibeles.jpg',
-  },
-  {
-    key: 2,
-    currentImg: 'escaperoom.jpg',
-  }
-];
-
 export default class ProyectorComponente extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      keySelected: 0,
+      arrayImgs: undefined,
+      keySelected: undefined,
       currentImg: undefined,
+      showPanel: false,
     };
     this.escucharConexion=this.escucharConexion.bind(this);
     this.onPrevClick=this.onPrevClick.bind(this);
@@ -44,8 +30,37 @@ export default class ProyectorComponente extends React.Component {
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
       if(datos.urlPanel){
+          let prueba = [
+            
+              {
+                key: 0,
+                currentImg: 'madrid.jpg',
+              },
+              {
+                key: 1,
+                currentImg: 'cibeles.jpg',
+              },
+              {
+                key: 2,
+                currentImg: 'escaperoom.jpg',
+              }
+     
+            
+          ];
           this.setState({
-            currentImg: datos.urlPanel
+            arrayImgs: prueba,
+            keySelected: 0,
+            currentImg: prueba[0].currentImg,
+          });
+          /*this.setState({
+            arrayImgs: datos.urlPanel,
+            keySelected: 0,
+            currentImg: datos.urlPanel[0].currentImg,
+          });*/
+      }
+      if(datos.showPanel){
+          this.setState({
+            showPanel: datos.showPanel.show,
           });
       }
       this.escucharConexion();
@@ -61,18 +76,18 @@ export default class ProyectorComponente extends React.Component {
     if(key != undefined){
       if(key == 0){key = 0;}else{ key = key-1;}
     }else{return null;}
-    this.setState({keySelected: key, currentImg: arrayImgs[key].currentImg});
+    this.setState({keySelected: key, currentImg: this.state.arrayImgs[key].currentImg});
   }
   onNextClick(){
     let key = this.state.keySelected;
     if(key != undefined){
-      if(key == arrayImgs.length-1){key = arrayImgs.length-1;}else{key = key+1;}
+      if(key == this.state.arrayImgs.length-1){key = this.state.arrayImgs.length-1;}else{key = key+1;}
     }else{return null;}
-    this.setState({keySelected: key, currentImg: arrayImgs[key].currentImg});
+    this.setState({keySelected: key, currentImg: this.state.arrayImgs[key].currentImg});
   }
 
   render() {
-    if (!this.state.currentImg) {
+    if (!this.state.showPanel) {
       return (
         <View style={styles.none}>
           <Text style={styles.flatpanelText}>Loading...</Text>
@@ -85,7 +100,12 @@ export default class ProyectorComponente extends React.Component {
                 <VrButton onClick={this.onPrevClick}>
                   <Image style={styles.iconPrev} source={asset('icons/prev.png')} />
                 </VrButton>
-                <Image style={styles.img} source={{uri: this.state.currentImg}} />
+               
+                {this.state.currentImg ? (
+                 <Image style={styles.img} source={asset('proyectorImgs/' + this.state.currentImg)} />
+                 /*<Image style={styles.img} source={{uri: this.state.currentImg}} />*/
+                ) : <View style={styles.img}></View>}
+
                 <VrButton onClick={this.onNextClick}>
                   <Image style={styles.iconNext} source={asset('icons/next.png')} />
                 </VrButton>
@@ -99,11 +119,11 @@ export default class ProyectorComponente extends React.Component {
 const styles = StyleSheet.create({
  flatpanel: {
     width: 700,
-    height: 400,
+    height: 550,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     borderColor: '#303050',
     borderWidth: 2,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'stretch',
     
   },
@@ -134,6 +154,8 @@ const styles = StyleSheet.create({
     height: 50,
   },
   img: {
+    width: 600,
+    height: 400,
     margin: 10,
   },
 });
