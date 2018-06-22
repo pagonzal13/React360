@@ -21,6 +21,7 @@ export default class AnimatedMark extends React.Component {
     super();
     this.handleMarkClick = this.handleMarkClick.bind(this);
     this.spin = this.spin.bind(this);
+    this.state = {show:false}
   }
 
   componentDidMount(){
@@ -41,15 +42,26 @@ export default class AnimatedMark extends React.Component {
     let coorX = Number(this.props.value.split(",")[0]);
     let coorY = Number(this.props.value.split(",")[1]);
     let coorZ = Number(this.props.value.split(",")[2]);
-    
       return (
-        <VrButton style={styles.mark} onClick={this.handleMarkClick}>
-        
+        <VrButton style={{ transform: [ {translate: [coorX ,coorY+1, coorZ]}],
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: 'transparent'
+
+      }} onClick={this.handleMarkClick}>
+           <Text style={{
+            fontSize: 0.3, 
+            color: 'black',
+            backgroundColor: 'white',
+            transform: [{translate: [0 ,0.8, 0]}], 
+            opacity: (this.state.show ? 1:0)}}>
+            {this.props.connection}
+            </Text>
           <AnimatedEntity
             style={{
               color: this.props.color,
               transform: [
-                {translate: [coorX ,coorY, coorZ]},
                 {scale: 0.02},
                 {rotateY: this.rotation}
               ]}}
@@ -57,17 +69,14 @@ export default class AnimatedMark extends React.Component {
               obj: asset('icons/modelHueco.obj'),
             }}
           />  
-          
         </VrButton>
       )
-
-    
   }
 
   handleMarkClick(){
       switch (this.props.connectMode) {
         case 'popup':
-          this.props.popUpEvent(this.props.connection);
+          this.setState({show: !this.state.show});
           console.log('POPUP');
           return;
         default:
@@ -81,10 +90,6 @@ export default class AnimatedMark extends React.Component {
 
 const styles = StyleSheet.create({
   mark: {
-  },
-  texto: {
-    color: 'red',
-    fontSize: 10,
   },
   img: {
     margin: 10,

@@ -4,12 +4,12 @@
 import {Location, ReactInstance, Surface} from 'react-360-web';
 import ConexionModule from './ConexionModule';
 
-const leftPanel = new Surface(700, 600, Surface.SurfaceShape.Flat);
+const leftPanel = new Surface(700, 600, Surface.SurfaceShape.Cylinder);
 
-leftPanel.setAngle(
-  -1.4, /* horiz angle */
-  0 /* vertical angle */
-);
+// leftPanel.setAngle(
+//   -0.7, /* horiz angle */
+//   0 /* vertical angle */
+// );
 
 const centerPanel = new Surface(600, 300, Surface.SurfaceShape.Cylinder);
 

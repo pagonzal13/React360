@@ -17,7 +17,7 @@ export default class ProyectorComponente extends React.Component {
   constructor() {
     super();
     this.state = {
-      arrayImgs: undefined,
+      arrayImgs: [],
       keySelected: undefined,
       currentImg: undefined,
       showPanel: false,
@@ -29,34 +29,14 @@ export default class ProyectorComponente extends React.Component {
 
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
-      if(datos.urlPanel){
-          let prueba = [
-            
-              {
-                key: 0,
-                currentImg: 'madrid.jpg',
-              },
-              {
-                key: 1,
-                currentImg: 'cibeles.jpg',
-              },
-              {
-                key: 2,
-                currentImg: 'escaperoom.jpg',
-              }
-     
-            
-          ];
-          this.setState({
-            arrayImgs: prueba,
+      console.log(datos)
+      if(datos.imgs && datos.imgs.length > 0){
+  
+        this.setState({
+            arrayImgs: datos.imgs,
             keySelected: 0,
-            currentImg: prueba[0].currentImg,
+            currentImg: datos.imgs[0].currentImg,
           });
-          /*this.setState({
-            arrayImgs: datos.urlPanel,
-            keySelected: 0,
-            currentImg: datos.urlPanel[0].currentImg,
-          });*/
       }
       if(datos.showPanel){
           this.setState({
@@ -87,6 +67,7 @@ export default class ProyectorComponente extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     if (!this.state.showPanel) {
       return (
         <View style={styles.none}>
@@ -97,16 +78,16 @@ export default class ProyectorComponente extends React.Component {
           return (
             <View style={styles.flatpanel}>
               <View style={styles.controls}>
-                <VrButton onClick={this.onPrevClick}>
+                <VrButton onClick={this.onPrevClick} disabled={this.state.arrayImgs.length < 1}>
                   <Image style={styles.iconPrev} source={asset('icons/prev.png')} />
                 </VrButton>
                
                 {this.state.currentImg ? (
-                 <Image style={styles.img} source={asset('proyectorImgs/' + this.state.currentImg)} />
-                 /*<Image style={styles.img} source={{uri: this.state.currentImg}} />*/
+                 /*<Image style={styles.img} source={asset('proyectorImgs/' + this.state.currentImg)} />*/
+                 <Image style={styles.img} source={{uri: this.state.currentImg}} />
                 ) : <View style={styles.img}></View>}
 
-                <VrButton onClick={this.onNextClick}>
+                <VrButton onClick={this.onNextClick} disabled={this.state.arrayImgs.length < 1}>
                   <Image style={styles.iconNext} source={asset('icons/next.png')} />
                 </VrButton>
               </View>

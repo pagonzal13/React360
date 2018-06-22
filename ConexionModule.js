@@ -58,7 +58,8 @@ export default class ConexionModule extends Module {
           var id = sinNomVisor[0];
           idBox = id;
           window.parent.postMessage(JSON.stringify({msg: 'LOAD', id: id}),"*")
-        }catch(e){//console.log("No hay query");
+        }catch(e){
+          console.log(e);
       }
         
     }

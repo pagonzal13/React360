@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     // Fill the entire surface
     width: 200,
     height: 90,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    backgroundColor: 'rgba(255, 255, 255, 0)',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',

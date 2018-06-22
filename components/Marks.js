@@ -27,7 +27,6 @@ export default class Marks extends React.Component {
       textPopUp: "",
     };
     this.escucharConexion=this.escucharConexion.bind(this);
-    this.popUpEvent=this.popUpEvent.bind(this);
   }
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
@@ -66,13 +65,7 @@ export default class Marks extends React.Component {
     console.log(mark, box);
     ConexionModule.handleMark(mark, box);
   }
-  popUpEvent(text){
-    console.log("Es un popUp con este texto: " +text);
-    this.setState({
-      showPopUp: true,
-      textPopUp: text,
-    });
-  }
+   
 };
 
 const styles = StyleSheet.create({
