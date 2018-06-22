@@ -14,16 +14,12 @@ import {
 
 import Background from './components/Background.js';
 import ProyectorComponente from './components/ProyectorComponente.js';
-import PopUpFailComponente from './components/PopUpFailComponente.js';
 import MarksComponente from './components/Marks.js';
 const Proyector = () => (
   <ProyectorComponente/>
 );
 const Marks = () => (
   <MarksComponente/>
-);
-const PopUpFail = () => (
-  <PopUpFailComponente/>
 );
 
 // Extract our custom native module
@@ -41,8 +37,9 @@ export default class Ediphy360 extends React.Component {
       format:'2D',
       playAudio: false,
       showAudio: false,
+      currRot: [],
     };
-    console.log(VrHeadModel)
+    //console.log(VrHeadModel)
     this.escucharConexion=this.escucharConexion.bind(this);
   }
 
@@ -118,9 +115,11 @@ export default class Ediphy360 extends React.Component {
 
     setInterval(()=>{
       let currRot = VrHeadModel.rotation();
-      //console.log(currRot)
-       ConexionModule.handlePosition(currRot);
-    },5000)
+      if(JSON.stringify(currRot) === JSON.stringify(this.state.currRot)){
+        console.log(currRot)
+        ConexionModule.handlePosition(currRot);
+      } 
+    },2000)
 
 
   }
@@ -200,4 +199,3 @@ const styles = StyleSheet.create({
 AppRegistry.registerComponent('Ediphy360', () => Ediphy360);
 AppRegistry.registerComponent('Proyector', () => Proyector);
 AppRegistry.registerComponent('Marks', () => Marks);
-AppRegistry.registerComponent('PopUpFail', () => PopUpFail);

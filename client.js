@@ -4,14 +4,12 @@
 import {Location, ReactInstance, Surface} from 'react-360-web';
 import ConexionModule from './ConexionModule';
 
-const leftPanel = new Surface(700, 600, Surface.SurfaceShape.Cylinder);
+const photosPanel = new Surface(700, 600, Surface.SurfaceShape.Cylinder);
 
 // leftPanel.setAngle(
 //   -0.7, /* horiz angle */
 //   0 /* vertical angle */
 // );
-
-const centerPanel = new Surface(600, 300, Surface.SurfaceShape.Cylinder);
 
 function init(bundle, parent, options = {}) {
 
@@ -23,10 +21,6 @@ function init(bundle, parent, options = {}) {
     ],
     ...options,
   });
-  r360.renderToSurface(
-    r360.createRoot('PopUpFail', { /* initial props */ }),
-    centerPanel,
-  );
   r360.renderToLocation(
     r360.createRoot('Marks'),
     r360.getDefaultLocation(),
@@ -41,7 +35,7 @@ function init(bundle, parent, options = {}) {
   );
   r360.renderToSurface(
     r360.createRoot('Proyector'),
-    leftPanel,
+    photosPanel,
   );
   r360.compositor.setBackground('./static_assets/360_world.jpg');
 

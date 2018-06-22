@@ -54,26 +54,21 @@ export default class ProyectorComponente extends React.Component {
   onPrevClick(){
     let key = this.state.keySelected;
     if(key != undefined){
-      if(key == 0){key = 0;}else{ key = key-1;}
+      if(key == 0){key = this.state.arrayImgs.length-1;}else{ key = key-1;}
     }else{return null;}
     this.setState({keySelected: key, currentImg: this.state.arrayImgs[key].currentImg});
   }
   onNextClick(){
     let key = this.state.keySelected;
     if(key != undefined){
-      if(key == this.state.arrayImgs.length-1){key = this.state.arrayImgs.length-1;}else{key = key+1;}
+      if(key == this.state.arrayImgs.length-1){key = 0;}else{key = key+1;}
     }else{return null;}
     this.setState({keySelected: key, currentImg: this.state.arrayImgs[key].currentImg});
   }
 
   render() {
-    console.log(this.state)
     if (!this.state.showPanel) {
-      return (
-        <View style={styles.none}>
-          <Text style={styles.flatpanelText}>Loading...</Text>
-        </View>
-      );
+      return null;
     }else{
           return (
             <View style={styles.flatpanel}>
@@ -83,7 +78,6 @@ export default class ProyectorComponente extends React.Component {
                 </VrButton>
                
                 {this.state.currentImg ? (
-                 /*<Image style={styles.img} source={asset('proyectorImgs/' + this.state.currentImg)} />*/
                  <Image style={styles.img} source={{uri: this.state.currentImg}} />
                 ) : <View style={styles.img}></View>}
 
