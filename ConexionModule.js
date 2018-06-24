@@ -28,9 +28,9 @@ export default class ConexionModule extends Module {
             //console.log("(iframe) ha llegado esto: " + event.data.imagenBack);
             this.winSource.postMessage(JSON.stringify({msg:"Imagen Back recibida correctamente"}), this.origin);
           }
-          if(event.data.urlPanel){
-            //console.log("(iframe) ha llegado esto: " + event.data.urlPanel);
-            this.winSource.postMessage(JSON.stringify({msg:"Url Panel recibida correctamente"}), this.origin);
+          if(event.data.imgs){
+            //console.log("(iframe) ha llegado esto: " + event.data.imgs);
+            this.winSource.postMessage(JSON.stringify({msg:"Imágenes recibidas correctamente"}), this.origin);
           }
           if(event.data.showPanel){
             //console.log("(iframe) ha llegado esto: " + event.data.showPanel);

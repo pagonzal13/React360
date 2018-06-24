@@ -44,25 +44,31 @@ export default class AnimatedMark extends React.Component {
     let coorX = Number(this.props.value.split(",")[0]);
     let coorY = Number(this.props.value.split(",")[1]);
     let coorZ = Number(this.props.value.split(",")[2]);
-    let yPos = -coorX*90/7.5;
-    let zPos = 1;
-    if (coorZ && coorZ>0) zPos = -1;
-    if (coorZ && coorZ>0 && coorX>0) yPos = -(0.5-coorX*90);
-    if (coorZ && coorZ>0 && coorX<0) yPos = (1.5-coorX*90);
+
+    //console.log("coorX: "+ coorX);
+    //console.log("coorY: "+ coorY);
+    //console.log("coorZ: "+ coorZ);
+
+    let zTextPos = 1;
+    if (coorZ && coorZ>0) zTextPos = -1;
+    let yRot = -coorX*90/7.5;
+    if (coorZ && coorZ>0 && coorX>0) yRot = -(0.5-coorX*90);
+    if (coorZ && coorZ>0 && coorX<0) yRot = (1.5-coorX*90);
       return (
-        <VrButton style={{ transform: [ {translate: [coorX ,coorY+1, coorZ]}],
+        <VrButton style={{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: 'transparent',
         position: 'absolute',
+        transform: [ {translate: [coorX ,coorY, coorZ]}],
       }} onClick={this.handleMarkClick}>
            <Text style={{
             fontSize: 0.2, 
             width: 2,
             color: 'black',
             backgroundColor: 'rgba(255, 255, 255, 0.4)',
-            transform: [{translate: [0 ,0.8, zPos]}, {rotateY: yPos}], 
+            transform: [{translate: [0 ,0.8, zTextPos]}, {rotateY: yRot}], 
             opacity: (this.state.show ? 1:0)}}>
             {this.props.connection}
             </Text>

@@ -115,8 +115,10 @@ export default class Ediphy360 extends React.Component {
 
     setInterval(()=>{
       let currRot = VrHeadModel.rotation();
-      if(JSON.stringify(currRot) === JSON.stringify(this.state.currRot)){
+      if(JSON.stringify(this.state.currRot) === '[]')  this.setState({ currRot: currRot });
+      if(JSON.stringify(currRot) !== JSON.stringify(this.state.currRot)){
         console.log(currRot)
+        this.setState({ currRot: currRot });
         ConexionModule.handlePosition(currRot);
       } 
     },2000)

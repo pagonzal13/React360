@@ -28,7 +28,7 @@ export default class Marks extends React.Component {
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
       if (datos.marks) {
-        console.log(datos.marks)
+        //console.log(datos.marks)
         this.setState({
           marks: datos.marks
         })

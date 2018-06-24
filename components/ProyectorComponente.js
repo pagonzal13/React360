@@ -29,7 +29,7 @@ export default class ProyectorComponente extends React.Component {
 
   escucharConexion() {
     ConexionModule.conexionIframe(datos => {
-      console.log(datos)
+      //console.log(datos)
       if(datos.imgs && datos.imgs.length > 0){
   
         this.setState({
