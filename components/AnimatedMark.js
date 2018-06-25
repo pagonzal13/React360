@@ -50,10 +50,11 @@ export default class AnimatedMark extends React.Component {
     //console.log("coorZ: "+ coorZ);
 
     let zTextPos = 1;
-    if (coorZ && coorZ>0) zTextPos = -1;
-    let yRot = -coorX*90/7.5;
-    if (coorZ && coorZ>0 && coorX>0) yRot = -(0.5-coorX*90);
-    if (coorZ && coorZ>0 && coorX<0) yRot = (1.5-coorX*90);
+    // if (coorZ && coorZ>0) zTextPos = -1;
+    let yRot =  -90+ 180/Math.PI*Math.tan2(-coorX,-coorZ);//-coorX*90/7.5;
+    console.log(yRot)
+    // if (coorZ && coorZ>0 && coorX>0) yRot = -(0.5-coorX*90);
+    // if (coorZ && coorZ>0 && coorX<0) yRot = (1.5-coorX*90);
       return (
         <VrButton style={{
         flex: 1,
@@ -68,7 +69,7 @@ export default class AnimatedMark extends React.Component {
             width: 2,
             color: 'black',
             backgroundColor: 'white',
-            transform: [{translate: [0 ,0.8, zTextPos]}, {rotateY: yRot}], 
+            transform: [{translate: [0 ,0.8, zTextPos]},{rotateY: yRot}],
             opacity: (this.state.show ? 1:0)}}>
             {this.props.connection}
             </Text>
