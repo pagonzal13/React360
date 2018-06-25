@@ -6,11 +6,6 @@ import ConexionModule from './ConexionModule';
 
 const photosPanel = new Surface(700, 600, Surface.SurfaceShape.Cylinder);
 
-// leftPanel.setAngle(
-//   -0.7, /* horiz angle */
-//   0 /* vertical angle */
-// );
-
 function init(bundle, parent, options = {}) {
 
   const r360 = new ReactInstance(bundle, parent, {

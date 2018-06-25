@@ -67,7 +67,7 @@ export default class AnimatedMark extends React.Component {
             fontSize: 0.2, 
             width: 2,
             color: 'black',
-            backgroundColor: 'rgba(255, 255, 255, 0.4)',
+            backgroundColor: 'white',
             transform: [{translate: [0 ,0.8, zTextPos]}, {rotateY: yRot}], 
             opacity: (this.state.show ? 1:0)}}>
             {this.props.connection}
