@@ -51,7 +51,7 @@ export default class AnimatedMark extends React.Component {
 
     let zTextPos = 1;
     // if (coorZ && coorZ>0) zTextPos = -1;
-    let yRot =  -90+ 180/Math.PI*Math.tan2(-coorX,-coorZ);//-coorX*90/7.5;
+    let yRot =  -90+ 180/Math.PI*Math.atan2(-coorX,-coorZ);//-coorX*90/7.5;
     console.log(yRot)
     // if (coorZ && coorZ>0 && coorX>0) yRot = -(0.5-coorX*90);
     // if (coorZ && coorZ>0 && coorX<0) yRot = (1.5-coorX*90);
