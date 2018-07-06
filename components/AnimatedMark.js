@@ -49,10 +49,10 @@ export default class AnimatedMark extends React.Component {
     //console.log("coorY: "+ coorY);
     //console.log("coorZ: "+ coorZ);
 
-    let zTextPos = 1;
-    // if (coorZ && coorZ>0) zTextPos = -1;
-    let yRot =  -90+ 180/Math.PI*Math.atan2(-coorX,-coorZ);//-coorX*90/7.5;
-    console.log(yRot)
+    let zTextPos = 0.5;
+    if (coorZ && coorZ>0) zTextPos = -1;
+    let yRot =  180/Math.PI*Math.atan2(-coorX,-coorZ);//-coorX*90/7.5;
+    //console.log(yRot)
     // if (coorZ && coorZ>0 && coorX>0) yRot = -(0.5-coorX*90);
     // if (coorZ && coorZ>0 && coorX<0) yRot = (1.5-coorX*90);
       return (
@@ -66,10 +66,11 @@ export default class AnimatedMark extends React.Component {
       }} onClick={this.handleMarkClick}>
            <Text style={{
             fontSize: 0.2, 
-            width: 2,
+            width: 1,
+            textAlign: 'center',
             color: 'black',
             backgroundColor: 'white',
-            transform: [{translate: [0 ,0.8, zTextPos]},{rotateY: yRot}],
+            transform: [{translate: [0 ,0.5, zTextPos]},{rotateY: yRot}],
             opacity: (this.state.show ? 1:0)}}>
             {this.props.connection}
             </Text>
