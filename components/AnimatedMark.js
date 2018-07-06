@@ -45,16 +45,10 @@ export default class AnimatedMark extends React.Component {
     let coorY = Number(this.props.value.split(",")[1]);
     let coorZ = Number(this.props.value.split(",")[2]);
 
-    //console.log("coorX: "+ coorX);
-    //console.log("coorY: "+ coorY);
-    //console.log("coorZ: "+ coorZ);
-
     let zTextPos = 0.5;
     if (coorZ && coorZ>0) zTextPos = -1;
-    let yRot =  180/Math.PI*Math.atan2(-coorX,-coorZ);//-coorX*90/7.5;
-    //console.log(yRot)
-    // if (coorZ && coorZ>0 && coorX>0) yRot = -(0.5-coorX*90);
-    // if (coorZ && coorZ>0 && coorX<0) yRot = (1.5-coorX*90);
+    let yRot =  180/Math.PI*Math.atan2(-coorX,-coorZ);
+
       return (
         <VrButton style={{
         flex: 1,
